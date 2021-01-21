@@ -24,6 +24,19 @@ Then open the camera-capture tool, select the path of your data directory and *l
 $ camera-capture csi://0       # using default MIPI CSI camera
 $ camera-capture /dev/video0   # using V4L2 camera /dev/video0
 ```
-I captured about 100 photos for the **training**, 20 for **validation**, and just a few for **testing**, because I wanted to test the model from the camera.
+I captured about 100 photos for the **training**, 20 for **validation**, and just a few for **testing**, because I wanted to test the model from live camera feed.
 
 ## Re-training the model
+Now that we have collected enough data, lets **re-train a pre-trained ResNet-18 model**.
+ResNet-18 is a [**convolutional neural network**](https://en.wikipedia.org/wiki/Convolutional_neural_network) with 18 layers. It has already been trained for image classification, so that we only have to train it with our custom data and labels:
+```
+$ cd jetson-inference/python/training/classification
+$ python3 train.py --model-dir=models/<YOUR-MODEL> data/<YOUR-DATASET>
+```
+*Hint: **models/** and **data/** are relative paths, you can change them for absolute paths if you located yout data elsewere.*
+
+The training script chooses a total of 35 epochs by default, and lasted for about 2 hours. For my model it was not enough, and I had to re-re-train the model for a total of **100 epochs**, leaving it work overnight. You can resume the training where the script left it with something like:
+```
+python3 train.py --model-dir=models/<YOUR-MODEL> data/<YOUR-DATASET> --resume /home/$USER/jetson-inference/python/training/classification/models/checkpoint.pth.tar --start-epoch 35 --epochs 100
+```
+*Hint: run `python3 train.py --help` for a list of arguments and options. 
