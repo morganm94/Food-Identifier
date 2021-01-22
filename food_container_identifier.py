@@ -83,6 +83,16 @@ input = jetson.utils.videoSource(opt.input_URI, argv=sys.argv)
 # output = jetson.utils.videoOutput(opt.output_URI, argv=sys.argv+is_headless)
 # font = jetson.utils.cudaFont()
 
+
+################################################
+# AUDIBLE INSTRUCTIONS FOR EXITING THE PROGRAM #
+################################################
+
+engine.setProperty('rate', 200)
+engine.say("Welcome, for exiting this program please keep pressing for two seconds the keyboard keys 'control' and 'c'")
+engine.setProperty('rate', 100)
+
+
 # process frames until the user exits
 while True:
 
@@ -123,8 +133,3 @@ while True:
 	# exit on input/output EOS
 	# if not input.IsStreaming() or not output.IsStreaming():
 	# 	break
-	
-###############################################################
-# STILL WORKING ON A CLEAN EXIT DUE TO A GSTREAMER BUG.       #
-# FOR NOW, PRESS CTRL + c FOR 3 SECONDS TO EXIT THE PROGRAM   #
-###############################################################
