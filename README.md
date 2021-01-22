@@ -27,7 +27,7 @@ $ camera-capture /dev/video0   # using V4L2 camera /dev/video0
 I captured about 100 photos for the **training**, 20 for **validation**, and just a few for **testing**, because I wanted to test the model from live camera feed.
 
 ## Re-training the model
-Now that we have collected enough data, lets **re-train a pre-trained ResNet-18 model**.
+Now that we have collected enough data, lets **re-train a pre-trained ResNet-18 model** using [**Pytorch**](https://pytorch.org/).
 ResNet-18 is a [**convolutional neural network**](https://en.wikipedia.org/wiki/Convolutional_neural_network) with 18 layers. It has already been trained for image classification, so that we only have to train it with our custom data and labels:
 ```
 $ cd jetson-inference/python/training/classification
@@ -37,6 +37,41 @@ $ python3 train.py --model-dir=models/<YOUR-MODEL> data/<YOUR-DATASET>
 
 The training script chooses a total of 35 epochs by default, and lasted for about 2 hours. For my model it was not enough, and I had to re-re-train the model for a total of **100 epochs**, leaving it work overnight. You can resume the training where the script left it with something like:
 ```
-python3 train.py --model-dir=models/<YOUR-MODEL> data/<YOUR-DATASET> --resume /home/$USER/jetson-inference/python/training/classification/models/checkpoint.pth.tar --start-epoch 35 --epochs 100
+$ python3 train.py --model-dir=models/<YOUR-MODEL> data/<YOUR-DATASET> --resume /home/$USER/jetson-inference/python/training/classification/models/checkpoint.pth.tar --start-epoch 35 --epochs 100
 ```
-*Hint: run `python3 train.py --help` for a list of arguments and options. 
+*Hint: run `python3 train.py --help` for a list of arguments and options.*
+
+## Export your model to ONNX format and test it
+Once your model's training ended, it's time to test the results to see if they are precise enough. But before testing our PyTorch model with **imagenet**, we need to export it to **O**pen **N**eural **N**etwork **E**xchange format:
+```
+$ python3 onnx_export.py --model-dir=models/<YOUR-MODEL>
+```
+### Now let's test it!
+```
+$ imagenet.py --model=models/<YOUR-MODEL>/resnet18.onnx --input_blob=input_0 --output_blob=output_0 --labels=data/<YOUR-DATASET>/labels.txt csi://0
+```
+Once you are satisfied with your model's accuracy, proceed to the next step.
+
+## Speech description using Python lib pyttsx33
+### Installind dependencies
+Install a **speech synthesizer** supported by [**pyttsx3**](https://pypi.org/project/pyttsx3/):
+```
+$ sudo apt-get install espeak
+```
+And, finally, the Python library for text-to-speech conversion:
+```
+$ sudo pip3 install pyttsx3
+```
+*Hint: if you are a Python developer I recommend you install this Python lib in a virtual envioment.*
+
+### Customizing 'imagenet.py'
+
+This repository contains a modified script of the original [imagenet.py](https://github.com/dusty-nv/jetson-inference/blob/master/python/examples/imagenet.py) example. Basically, we need to import, initialize and barely configure the **pyttsx3** Python3 library. Since we won't need the visual feedback and we are low on system resources, I opted to comment out the code related to it.
+The script is simple and generic enough for being useful as **a starting point for a lot of accesibility projects**.
+
+## That's it!
+Test your model with our new script, passing the exact same arguments you would pass to *imagenet.py*:
+```
+$ python3 /home/$USER/jetson-inference/python/examples/food_container_identifier.py --model=/home/$USER/jetson-inference/python/training/classification/models/food_container_identifier/resnet18.onnx --input_blob=input_0 --output_blob=output_0 --labels=/home/$USER/jetson-inference/python/training/classification/data/food_container_identifier/labels.txt csi://0
+```
+Notice how I'm now using **absolute paths** because I saved my `food_container_identifier.py` script in a different directory than my data. You can make an **alias** in `~.bashrc` or just move everything to the same directory to spare some time.
