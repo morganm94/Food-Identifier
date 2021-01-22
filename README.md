@@ -1,5 +1,6 @@
 # Food Container Identifier
 Re-train a ResNet-18 Neural Network with PyTorch for image classification of food containers from a live camera feed and use a Python script for speech description of those food containers for the visually impaired using Nvidia's Jetson Nano.
+**Note**: this project's data is too big for a GitHub repository, I had to upload it to an [external service](https://1drv.ms/u/s!AuyJyRlIYCmGhHePwGWAZX43FWU1?e=wNfQ3i). For the same reason, my model, already trained with my data and exported to ONNX format, can be found in the [releases](https://github.com/oliver-almaraz/food_container_identifier/releases/tag/v1) section.
 
 ## Introduction
 Since last year, I’ve been programming some [JavaScript](https://github.com/oliver-almaraz/BrailleTermWeb) and [C](https://github.com/oliver-almaraz/Parkins) to adapt braille-learning resources for Spanish-speaking students and teachers, and since I recently got my **Jetson Nano Developer Kit** I started to realize the huge potential of this little but powerful computer towards **accessibility**.
@@ -69,7 +70,7 @@ Training a model is a memory-hungry process that lasts several hours. If you're 
     (keep in mind if you regularly abuse the SWAP usage it will shorten you microSD card's life)
   3. As suggested in the jetson-inference repository:
   
-    *to save memory, you can also reduce the --batch-size (default 8) and --workers (default 2)*
+    to save memory, you can also reduce the --batch-size (default 8) and --workers (default 2)
     
 Remember that these are **desperate measures** to follow in case your training-process gets killed.
 
@@ -82,7 +83,7 @@ $ python3 onnx_export.py --model-dir=models/<YOUR-MODEL>
 ```
 $ imagenet.py --model=models/<YOUR-MODEL>/resnet18.onnx --input_blob=input_0 --output_blob=output_0 --labels=data/<YOUR-DATASET>/labels.txt csi://0
 ```
-Once you are satisfied with your model's accuracy, proceed to the next step.
+Once you are satisfied with your model's accuracy, proceed to the next step. (If you wish, you can also try [my own model](https://github.com/oliver-almaraz/food_container_identifier/releases/tag/v1) already trained and exported to ONNX format).
 
 ## Speech description using Python library pyttsx33
 ### Installing dependencies
