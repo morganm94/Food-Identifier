@@ -20,7 +20,7 @@ You will also need a **camera**. See the list of Nvidia's [officially supported 
 <img src="https://user-images.githubusercontent.com/69062188/105443000-66ee2200-5c30-11eb-9c21-a5e1b6df1a75.jpg" width="80%"></img>
 
 
-I'm using a Jetson Nano 2gb Developer Kit running from an SSD (thanks to [JetsonHacksNano](https://github.com/JetsonHacksNano/rootOnUSB)!), a Raspberry Pi Camera V2.1, a camera mount I made myself and a generic tripod. I also got a GeekPi 40mm, 5v, 4 pin PWM cooling fan (it's not necessary but it helped me sleep fearlessly while leaving my Jetson Nano train a model overnight).
+I'm using a Jetson Nano 2gb Developer Kit running from an SSD (thanks to [JetsonHacksNano](https://github.com/JetsonHacksNano/rootOnUSB)!), a Raspberry Pi Camera V2.1, a camera mount I made myself and a generic tripod. I also got a GeekPi 40mm, 5v, 4 pin PWM cooling fan (it's not necessary but it helped me sleep fearlessly while leaving my Jetson Nano train a model overnight). And... yes, that's a carboard box, my Jetson's case is still on its way from China.
 
 That's it for the hardware. Now, we will be doing almost everything from the comand-line-interface (terminal), which could intimidate non-Linux users. Be not afraid, if you don't have a Linux background but you're good at following instructions you will be fine. Contact me if there's something I can make easier to follow.
 We will edit a simple Python script, but even if you are not a programmer, you will be able to follow what's going on by just reading the comments in the script. Nevertheless, I encourage you to learn a bit of Python so that you can adapt this project to your own purposes.
