@@ -10,7 +10,7 @@ Visually impaired people use other senses for understanding the world around the
 It’s true that there are several mobile aplications that can recognize most objects, but when it comes to very specific or regional objects, they fail to describe in such detail the the despcrition to be useful. For example, Google Lens will fail to decribe the can I’m holding in front of my camera if it’s not in the right angle, and it might describe just a 'can', which is usless to me. Therefore visually impaired people would probably find helpful for an autonomous life to have a device able to **indentify and describe with enough precision any of the cans and jars they normally use, no matter if it’s not in the right angle in front of the camera**. And that’s exactly what this project is about.
 
 ## Requierements:
-You will need a Jetson Nano, either the 2gb or the 4gb version. Be aware that if you have the 2gb version (like me) you might have to take desperate measures for getting the most out of those 2gb of memory.
+You will need a Jetson Nano, either the 2gb or the 4gb version. Be aware that if you have the 2gb version (like me) you might have to take [desperate measures](https://github.com/oliver-almaraz/food_container_identifier/blob/main/README.md#desperate-measures) for getting the most out of those 2gb of memory.
 For the Nano you will need a microSD card of at least 64gb, and a USB-C 5v, 3A power supply. If you will access your Nano in **headless mode** you only need a microUSB cable, otherwise you will need a monitor, keyboard and mouse. Obviously, you need a computer to write the image to the microSD and for accessing the nano via SSH, in case you will be doing so.
 You will also need a **camera**. See the list of Nvidia's [officially supported cameras](https://developer.nvidia.com/embedded/jetson-partner-supported-cameras). If you get a MIPI CSI camera (like I did) you will have to get also a **camera mount** and a **tripod**. I made one myself, so if you like to drill and you have some spare wood or metal, you will have fun making one. The Rapberry Pi Camera V2 comes with a 15cm long **ribbon flex cable**, depending on your camera mount you might also need a longer one.
 
@@ -51,7 +51,7 @@ $ python3 train.py --model-dir=models/<YOUR-MODEL> data/<YOUR-DATASET> --resume 
 ```
 *Hint: run `python3 train.py --help` for a list of arguments and options.*
 
-## Desperate measures
+### Desperate measures
 Training a model is a memory-hungry process that lasts several hours. If you're using the Jetson Nano 2gb like me, you might want to follow these next steps to prevent your process from being killed by Linux:
   1. Acess you Jetson Nano from an SSH session and stop the graphical session with:
     `$ sudo systemctl stop lightdm`
@@ -61,6 +61,7 @@ Training a model is a memory-hungry process that lasts several hours. If you're 
     (if you do it regularly it will shorten you microSD's life)
   3. As suggested in the jetson-inference repository:
     *to save memory, you can also reduce the --batch-size (default 8) and --workers (default 2)*
+Remember that these are **desperate meassures** to follow in case of emergency, like if your training-process gets killed or if you get a *system throttled due to overcurrent* warning.
 
 ## Export your model to ONNX format and test it
 Once your model's training ended, it's time to test the results to see if they are precise enough. But before testing our PyTorch model with **imagenet**, we need to export it to **O**pen **N**eural **N**etwork **E**xchange format:
