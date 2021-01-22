@@ -9,6 +9,16 @@ In this particular project, I will train a Neural Network to identify some food 
 Visually impaired people use other senses for understanding the world around them, that’s why they struggle to identify objects with a similar, if no identical shape. They normally deal with that keeping their food supplies, and everythin in general in a very strict order, but a friend told me that openning the wrong food can is something common and annoying. **Now have you got an idea of how frustrating it could be just to make a meal without someone around you?**
 It’s true that there are several mobile aplications that can recognize most objects, but when it comes to very specific or regional objects, they fail to describe in such detail the the despcrition to be useful. For example, Google Lens will fail to decribe the can I’m holding in front of my camera if it’s not in the right angle, and it might describe just a 'can', which is usless to me. Therefore visually impaired people would probably find helpful for an autonomous life to have a device able to **indentify and describe with enough precision any of the cans and jars they normally use, no matter if it’s not in the right angle in front of the camera**. And that’s exactly what this project is about.
 
+## Requierements:
+You will need a Jetson Nano, either the 2gb or the 4gb version. Be aware that if you have the 2gb version (like me) you might have to take desperate measures for getting the most out of those 2gb of memory.
+For the Nano you will need a microSD card of at least 64gb, and a USB-C 5v, 3A power supply. If you will access your Nano in **headless mode** you only need a microUSB cable, otherwise you will need a monitor, keyboard and mouse. Obviously, you need a computer to write the image to the microSD and for accessing the nano via SSH, in case you will be doing so.
+You will also need a **camera**. See the list of Nvidia's [officially supported cameras](https://developer.nvidia.com/embedded/jetson-partner-supported-cameras). If you get a MIPI CSI camera (like I did) you will have to get also a **camera mount** and a **tripod**. I made one myself, so if you like to drill and you have some spare wood or metal, you will have fun making one. The Rapberry Pi Camera V2 comes with a 15cm long **ribbon flex cable**, depending on your camera mount you might also need a longer one.
+
+### My setup:
+
+That's it for the hardware. Now, we will be doing almost everything from the comand-line-interface (terminal), which could intimidate non-Linux users. Be not afraid, if you have not a Linux background but you're good at following instructions you will be fine. Contact me if there's something I can make easier to follow.
+We will edit a simple Python script, but even if you are not a programmer, you will be able to follow what's going on just reading the comments of the script. Nevertheless, I encourage you to learn a bit of Python so that you can adapt this project for your own purposes.
+
 ## First steps
 For this project, you will have to follow Nvidia tutorials and documentation for [**setting up your Jetson Nano**](https://developer.nvidia.com/embedded/learn/get-started-jetson-nano-2gb-devkit) and for [**configuring the software for training neural networks with Nvdia TensorRT optimized for the Jetson platform**](https://github.com/dusty-nv/jetson-inference).
 Nvidia documentation is clear enough, therefore I won’t explain in detail those first steps. Instead, I will focus on **training an image classification model with our own collected data** (that is food containers in our kitchen), and on **using a Python library for making the Jetson Nano read out loud its guess**.
@@ -41,6 +51,17 @@ $ python3 train.py --model-dir=models/<YOUR-MODEL> data/<YOUR-DATASET> --resume 
 ```
 *Hint: run `python3 train.py --help` for a list of arguments and options.*
 
+## Desperate measures
+Training a model is a memory-hungry process that lasts several hours. If you're using the Jetson Nano 2gb like me, you might want to follow these next steps to prevent your process from being killed by Linux:
+  1. Acess you Jetson Nano from an SSH session and stop the graphical session with:
+    `$ sudo systemctl stop lightdm`
+    (that will give you extra 300mb of memory)
+  2. Increase to maximum the SWAP file usage:
+    `$ sudo sysctl vm.swappiness=100`
+    (if you do it regularly it will shorten you microSD's life)
+  3. As suggested in the jetson-inference repository:
+    *to save memory, you can also reduce the --batch-size (default 8) and --workers (default 2)*
+
 ## Export your model to ONNX format and test it
 Once your model's training ended, it's time to test the results to see if they are precise enough. But before testing our PyTorch model with **imagenet**, we need to export it to **O**pen **N**eural **N**etwork **E**xchange format:
 ```
@@ -52,7 +73,7 @@ $ imagenet.py --model=models/<YOUR-MODEL>/resnet18.onnx --input_blob=input_0 --o
 ```
 Once you are satisfied with your model's accuracy, proceed to the next step.
 
-## Speech description using Python lib pyttsx33
+## Speech description using Python library pyttsx33
 ### Installind dependencies
 Install a **speech synthesizer** supported by [**pyttsx3**](https://pypi.org/project/pyttsx3/):
 ```
@@ -62,7 +83,7 @@ And, finally, the Python library for text-to-speech conversion:
 ```
 $ sudo pip3 install pyttsx3
 ```
-*Hint: if you are a Python developer I recommend you install this Python lib in a virtual envioment.*
+*Hint: if you are a Python developer I recommend you install this Python library in a virtual envioment.*
 
 ### Customizing 'imagenet.py'
 
