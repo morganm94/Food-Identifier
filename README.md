@@ -1,5 +1,5 @@
 # Food Container Identifier
-Re-train a ResNet-18 Neural Network with PyTorch for image classification of food containers from a live camera feed and use a Python script for speech description of those food containers for the visually impaired using Nvidia's Jetson Nano.
+Re-train a ResNet-18 Neural Network with PyTorch for image classification of food containers from a live camera feed and use a Python script for speech description of those food containers for the blind or visually impaired people using Nvidia's Jetson Nano.
 
 **Note**: this project's data is too big for a GitHub repository, I had to upload it to an [external service](https://1drv.ms/u/s!AuyJyRlIYCmGhHePwGWAZX43FWU1?e=wNfQ3i). For the same reason, my model, already trained with my data and exported to ONNX format, can be found in the [releases](https://github.com/oliver-almaraz/food_container_identifier/releases/tag/v1) section.
 
@@ -8,7 +8,7 @@ Since last year, I’ve been programming some [JavaScript](https://github.com/ol
 In this particular project, I will re-train a ResNe-18 Neural Network with PyTorch to identify some food containers I have in my kitchen and also to make the Jetson Nano read out loud the name of that product.
 
 ### But why would it be useful?
-Visually impaired people use other senses for understanding the world around them, that’s why they struggle to identify objects with a similar, if not identical shape. They normally deal with that keeping their food supplies (and everything in general) in a very strict order, but a friend told me that opening the wrong food can is something common and annoying. **Now have you got an idea of how frustrating it could be just to make a meal without someone around you?**
+Blind and visually impaired people may adapt to use other senses for understanding the world around them, that’s why they may struggle to identify objects with a similar, if not identical shape. They normally deal with that keeping their food supplies (and everything in general) in a very strict order, but a friend told me that opening the wrong food can is something common and annoying. **Now have you got an idea of how frustrating it could be just to make a meal without someone around you?**
 
 It’s true that there are several mobile applications that can recognize most objects, but when it comes to very specific or regional objects (like most items in my kitchen), they fail to describe in such detail the description for it being useful. For example, Google Lens will fail to describe the can I’m holding in front of my camera if it’s not in the right angle, and it might describe just a 'can', which is useless to me. Therefore visually impaired people would probably find helpful for an autonomous life to have a device wich is able to **indentify and describe with enough precision any of the cans and jars they normally use, no matter if it’s not in the right angle in front of the camera**. And that’s exactly what this project is about.
 
