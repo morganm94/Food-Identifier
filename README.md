@@ -99,9 +99,51 @@ $ sudo pip3 install pyttsx3
 
 ### Customizing 'imagenet.py'
 
-This repository contains a [modified script](https://github.com/oliver-almaraz/food_container_identifier/blob/main/food_container_identifier.py) of the original [imagenet.py](https://github.com/dusty-nv/jetson-inference/blob/master/python/examples/imagenet.py) example. Basically, we need to import, initialize and configure the **pyttsx3** Python3 library. Since we won't need the visual feedback and we are low on system resources, I opted to comment out the code related to it.
+This repository contains a [modified script](https://github.com/oliver-almaraz/food_container_identifier/blob/main/food_container_identifier.py) of the original [imagenet.py](https://github.com/dusty-nv/jetson-inference/blob/master/python/examples/imagenet.py) example.
+For adding the speech description feature to our *imagenet.py* script, we need to import, initialize and configure the **pyttsx3** Python3 library (lines 40 - 51):
+
+```python
+# Import text-to-speech Python library
+import pyttsx3
+
+# Initialize the pyttsx3 engine
+engine = pyttsx3.init()
+
+# Set speech rate (higer = faster)
+engine.setProperty('rate', 100)
+
+# OPTIONAL Set voice
+# voices = engine.getProperty('voices')
+# engine.setProperty('voice', voices[1].id)
+```
+
+Since we won't need the visual feedback and we are low on system resources, I opted to comment out the code related to it (lines 83 - 84):
+
+```python
+# output = jetson.utils.videoOutput(opt.output_URI, argv=sys.argv+is_headless)
+# font = jetson.utils.cudaFont()
+```
+
+And also lines 102 to 112:
+
+```python
+  # overlay the result on the image	
+  # font.OverlayText(img, img.width, img.height, "{:05.2f}% {:s}".format(confidence * 100, class_desc), 5, 5, font.White, font.Gray40)
+
+  # render the image
+  # output.Render(img)
+
+  # update the title bar
+  # output.SetStatus("{:s} |   Network {:.0f} FPS".format(net.GetNetworkName(), net.GetNetworkFPS()))
+
+  # print out performance info
+  # net.PrintProfilerTimes()
+```
+  
+
 The script is simple and generic enough for being useful as **a starting point for a lot of accessibility projects**.
 Please take a look at the [Python script](https://github.com/oliver-almaraz/food_container_identifier/blob/main/food_container_identifier.py) even if you are not a programmer, and try to understand what's going on.
+
 
 ## That's it!
 Test your model with our new script, passing the exact same arguments you would pass to *imagenet.py*:
@@ -111,9 +153,9 @@ $ python3 /home/$USER/jetson-inference/python/examples/food_container_identifier
 Notice how I'm now using **absolute paths** because I saved my `food_container_identifier.py` script in a different directory than my data. You can make an **alias** in `~.bashrc` or just move everything to the same directory to spare some time.
 
 ## About audio output
-THe Jetson Nano does not have a 3.5mm audio port nor a Bluetooth module, therefore we will have to use non-conventional audio outputs. If you have an HDMI monitor you can use its speakers. Because I only have a VGA monitor, I needed an HDMI to VGA converter, which connects to the Jetson Nano through the HDMI port and has two outputs: a VGA interface and a 3.5mm audio port, to which you can connect a speaker or headphones.
+The Jetson Nano does not have a 3.5mm audio port nor a Bluetooth module, therefore we will have to use non-conventional audio outputs. If you have an HDMI monitor you can use its speakers. Because I only have a VGA monitor, I needed an HDMI to VGA converter, which connects to the Jetson Nano through the HDMI port and has two outputs: a VGA interface and a 3.5mm audio port, to which you can connect a speaker or headphones.
 You can also get a cheap external sound card, which connects to a Jetson's USB port and has a 3.5mm audio output (image below).
 
 <img src="https://user-images.githubusercontent.com/69062188/105522763-40b59a00-5ca3-11eb-8520-ea1088ce004b.jpg" width="40%"></img> 
 
-No matter which audio output device you use, go to the **mixer** (right click the speaker's icon on the bottom-right corner and then *launch Mixer*, or run ´pavucontrol´ from the terminal) and select the right output device for **ALSA plug-in [aplay]** under the *Playback* tab.
+No matter which audio output device you use, go to the **mixer** (right click the speaker's icon on the bottom-right corner and then *launch Mixer*, or run ´pavucontrol´ from the terminal) and select the right output device for **ALSA plug-in [aplay]** under the *Playback* tab **while our program is running** (only the currently playing programs appear in the mixer).
