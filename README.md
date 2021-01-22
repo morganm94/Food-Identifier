@@ -7,11 +7,12 @@ In this particular project, I will re-train a ResNe-18 Neural Network with PyTor
 
 ### But why would it be useful?
 Visually impaired people use other senses for understanding the world around them, that’s why they struggle to identify objects with a similar, if not identical shape. They normally deal with that keeping their food supplies (and everything in general) in a very strict order, but a friend told me that opening the wrong food can is something common and annoying. **Now have you got an idea of how frustrating it could be just to make a meal without someone around you?**
+
 It’s true that there are several mobile applications that can recognize most objects, but when it comes to very specific or regional objects (like most items in my kitchen), they fail to describe in such detail the description for it being useful. For example, Google Lens will fail to describe the can I’m holding in front of my camera if it’s not in the right angle, and it might describe just a 'can', which is useless to me. Therefore visually impaired people would probably find helpful for an autonomous life to have a device wich is able to **indentify and describe with enough precision any of the cans and jars they normally use, no matter if it’s not in the right angle in front of the camera**. And that’s exactly what this project is about.
 
 ## Requirements:
 You will need a Jetson Nano, either the 2gb or the 4gb version. Be aware that if you have the 2gb version (like me) you might have to take [desperate measures](https://github.com/oliver-almaraz/food_container_identifier/blob/main/README.md#desperate-measures) for getting the most out of those 2gb of memory.
-For the O.S. you will need a microSD card of at least 64gb and a USB-C 5v, 3A power supply. If you will access your Nano in **headless mode** you only need a microUSB cable, otherwise you will need a monitor, keyboard and mouse. Obviously, you need a computer to write the image to the microSD and for accessing the nano via SSH, in case you will be doing so.
+For the O.S. you will need a microSD card of at least 64gb and a USB-C 5v, 3A power supply. If you will access your Nano in **headless mode** you only need a microUSB cable, otherwise you will need a monitor, keyboard and mouse. Obviously, you need a computer to write the image to the microSD card and for accessing the nano via SSH, in case you will be doing so.
 You will also need a **camera**. See the list of Nvidia's [officially supported cameras](https://developer.nvidia.com/embedded/jetson-partner-supported-cameras). If you get a MIPI CSI camera (like I did) you will have to get also a **camera mount** and a **tripod**. I made one myself, so if you like to drill and you have some spare wood or metal, you will have fun making one. The Rapberry Pi Camera V2 comes with a 15cm long **ribbon flex cable**, depending on your camera mount you might also need a longer one.
 
 ### My setup:
@@ -28,12 +29,13 @@ We will edit a simple Python script, but even if you are not a programmer, you w
 ## First steps
 For this project, you will have to follow Nvidia tutorials and documentation for [**setting up your Jetson Nano**](https://developer.nvidia.com/embedded/learn/get-started-jetson-nano-2gb-devkit) and for [**configuring the software for training neural networks with Nvdia TensorRT optimized for the Jetson platform**](https://github.com/dusty-nv/jetson-inference).
 Nvidia documentation is clear enough, therefore I won’t explain in detail those first steps. Instead, I will focus on **training an image classification model with our own collected data** (that is food containers in our kitchen), and on **using a Python library for making the Jetson Nano read out loud its guess**.
+
 *Hint: I suggest you [**build the project from source**](https://github.com/dusty-nv/jetson-inference/blob/master/docs/building-repo-2.md) instead of running the Docker container, while memory management is sometimes unpredictable using containers.*
 
 ## Collecting our data
 (This covers just the very basic procedure. For the complete documentation, visit the original [**jetson-inference repository**](https://github.com/dusty-nv/jetson-inference/blob/master/docs/pytorch-collect.md)).
 
-Select some items in your kitchen (I chose around 30), then create a new directory in `jetson-inference/python/training/classification/data` and create a new text file there named *labels.txt* with a list of your selected objects, **they must be in alphabetical order and there must be only one item (label) per line**. (You can consult my own *labels.txt* file included in this repository).
+Select some items in your kitchen (I chose around 30), then create a new directory in `jetson-inference/python/training/classification/data` and create a new text file there named *labels.txt* with a list of your selected objects, **they must be in alphabetical order and there must be only one item (label) per line**. (You can consult my own [*labels.txt*](https://github.com/oliver-almaraz/food_container_identifier/blob/main/labels.txt) file).
 Then open the camera-capture tool, select the path of your data directory and *labels.txt*, and start capturing pictures in different angles and positions, changing the background occasionally.
 
 ```
@@ -66,7 +68,9 @@ Training a model is a memory-hungry process that lasts several hours. If you're 
     `$ sudo sysctl vm.swappiness=100`
     (keep in mind if you regularly abuse the SWAP usage it will shorten you microSD card's life)
   3. As suggested in the jetson-inference repository:
+  
     *to save memory, you can also reduce the --batch-size (default 8) and --workers (default 2)*
+    
 Remember that these are **desperate measures** to follow in case your training-process gets killed.
 
 ## Export your model to ONNX format and test it
@@ -94,8 +98,9 @@ $ sudo pip3 install pyttsx3
 
 ### Customizing 'imagenet.py'
 
-This repository contains a modified script of the original [imagenet.py](https://github.com/dusty-nv/jetson-inference/blob/master/python/examples/imagenet.py) example. Basically, we need to import, initialize and configure the **pyttsx3** Python3 library. Since we won't need the visual feedback and we are low on system resources, I opted to comment out the code related to it.
+This repository contains a [modified script](https://github.com/oliver-almaraz/food_container_identifier/blob/main/food_container_identifier.py) of the original [imagenet.py](https://github.com/dusty-nv/jetson-inference/blob/master/python/examples/imagenet.py) example. Basically, we need to import, initialize and configure the **pyttsx3** Python3 library. Since we won't need the visual feedback and we are low on system resources, I opted to comment out the code related to it.
 The script is simple and generic enough for being useful as **a starting point for a lot of accessibility projects**.
+Please take a look at the [Python script](https://github.com/oliver-almaraz/food_container_identifier/blob/main/food_container_identifier.py) even if you are not a programmer, and try to understand what's going on.
 
 ## That's it!
 Test your model with our new script, passing the exact same arguments you would pass to *imagenet.py*:
