@@ -19,8 +19,7 @@ You will also need a **camera**. See the list of Nvidia's [officially supported 
 
 ### My setup:
 
-
-<img src="https://user-images.githubusercontent.com/69062188/105443000-66ee2200-5c30-11eb-9c21-a5e1b6df1a75.jpg" width="80%"></img>
+<img src="https://user-images.githubusercontent.com/69062188/105522755-3e534000-5ca3-11eb-8dce-3b0b8a7707fa.jpg" width="80%"></img> 
 
 
 I'm using a Jetson Nano 2gb Developer Kit running from an SSD (thanks to [JetsonHacksNano](https://github.com/JetsonHacksNano/rootOnUSB)!), a Raspberry Pi Camera V2.1, a camera mount I made myself and a generic tripod. I also got a GeekPi 40mm, 5v, 4 pin PWM cooling fan (it's not necessary but it helped me sleep fearlessly while leaving my Jetson Nano train a model overnight). And... yes, that's a carboard box, my Jetson's case is still on its way from China.
@@ -110,3 +109,11 @@ Test your model with our new script, passing the exact same arguments you would 
 $ python3 /home/$USER/jetson-inference/python/examples/food_container_identifier.py --model=/home/$USER/jetson-inference/python/training/classification/models/food_container_identifier/resnet18.onnx --input_blob=input_0 --output_blob=output_0 --labels=/home/$USER/jetson-inference/python/training/classification/data/food_container_identifier/labels.txt csi://0
 ```
 Notice how I'm now using **absolute paths** because I saved my `food_container_identifier.py` script in a different directory than my data. You can make an **alias** in `~.bashrc` or just move everything to the same directory to spare some time.
+
+## About audio output
+THe Jetson Nano does not have a 3.5mm audio port nor a Bluetooth module, therefore we will have to use non-conventional audio outputs. If you have an HDMI monitor you can use its speakers. Because I only have a VGA monitor, I needed an HDMI to VGA converter, which connects to the Jetson Nano through the HDMI port and has two outputs: a VGA interface and a 3.5mm audio port, to which you can connect a speaker or headphones.
+You can also get a cheap external sound card, which connects to a Jetson's USB port and has a 3.5mm audio output (image below).
+
+<img src="https://user-images.githubusercontent.com/69062188/105522763-40b59a00-5ca3-11eb-8520-ea1088ce004b.jpg" width="40%"></img> 
+
+No matter which audio output device you use, go to the **mixer** (right click the speaker's icon on the bottom-right corner and then *launch Mixer*, or run ´pavucontrol´ from the terminal) and select the right output device for **ALSA plug-in [aplay]** under the *Playback* tab.
