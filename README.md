@@ -169,16 +169,18 @@ Please take a look at the [Python script](https://github.com/oliver-almaraz/food
 
 ## That's it!
 Test your model with our new script, passing the exact same arguments you would pass to *imagenet.py*:
+
 ```
 $ python3 /home/$USER/jetson-inference/python/examples/food_container_identifier.py --model=/home/$USER/jetson-inference/python/training/classification/models/food_container_identifier/resnet18.onnx --input_blob=input_0 --output_blob=output_0 --labels=/home/$USER/jetson-inference/python/training/classification/data/food_container_identifier/labels.txt csi://0
 ```
-Notice how I'm now using **absolute paths** because I saved my `food_container_identifier.py` script in a different directory than my data. You can make an **alias** in `~.bashrc` or just move everything to the same directory to spare some time.
 
 Finally, if someone is going to run our program often, it would be nice to make an **alias** for our long command. Run in a terminal:
+
 ```shell
 $ echo "alias food_container_identifier='THE LONG COMMAND' #This is a comment to remember what this alias does." >> ~/.bashrc
 $ source ~/.bashrc
 ```
+
 Now every time we run *food_container_identifier* (or any name you wrote instead) from a terminal it will be automatically replaced by the long command we wrote inside **''** and executed. I recommend you use absolute paths in this case, as I did.
 
 **Keyboard bindings are important to have in mind when developing accessiible programs**, you might also want to set one for opening a terminal (normally, it defaults to **Ctrl + Alt + t**).
