@@ -14,7 +14,7 @@ It’s true that there are several mobile applications that can recognize most o
 
 ## Requirements:
 You will need a Jetson Nano, either the 2gb or the 4gb version. Be aware that if you have the 2gb version (like me) you might have to take [desperate measures](https://github.com/oliver-almaraz/food_container_identifier/blob/main/README.md#desperate-measures) for getting the most out of those 2gb of memory.
-For the O.S. you will need a microSD card of at least 64gb and a USB-C 5v, 3A power supply. If you will access your Nano in **headless mode** you only need a microUSB cable, otherwise you will need a monitor, keyboard and mouse. Obviously, you need a computer to write the image to the microSD card and for accessing the nano via SSH, in case you will be doing so.
+For the O.S. you will need a microSD card of at least 64gb and, depending of what version of the Jetson Nano you have, a USB-C 5v, 3A, or a barrel-jack power supply. If you will access your Nano in **headless mode** you only need a microUSB cable, otherwise you will need a monitor, keyboard and mouse. Naturally, you need a computer to write the image to the microSD card and for accessing the nano via SSH, in case you will be doing so.
 You will also need a **camera**. See the list of Nvidia's [officially supported cameras](https://developer.nvidia.com/embedded/jetson-partner-supported-cameras). If you get a MIPI CSI camera (like I did) you will have to get also a **camera mount** and a **tripod**. I made one myself, so if you like to drill and you have some spare wood or metal, you will have fun making one. The Rapberry Pi Camera V2 comes with a 15cm long **ribbon flex cable**, depending on your camera mount you might also need a longer one.
 
 ### My setup:
@@ -52,7 +52,7 @@ ResNet-18 is a [**convolutional neural network**](https://en.wikipedia.org/wiki/
 $ cd jetson-inference/python/training/classification
 $ python3 train.py --model-dir=models/<YOUR-MODEL> data/<YOUR-DATASET>
 ```
-*Hint: **models/** and **data/** are relative paths, you can change them for absolute paths if you located yout data elsewere.*
+*Hint: **models/** and **data/** are relative paths, you can change them for absolute paths if you located your data elsewere.*
 
 The training script ran a total of 35 epochs by default, and lasted for about 2 hours. For my model it was not enough, and I had to re-re-train the model for a total of **100 epochs**, leaving it work overnight. You can resume the training where the script left it with something like:
 ```
@@ -62,12 +62,18 @@ $ python3 train.py --model-dir=models/<YOUR-MODEL> data/<YOUR-DATASET> --resume 
 
 ### Desperate measures
 Training a model is a memory-hungry process that lasts several hours. If you're using the Jetson Nano 2gb like me, you might need to follow these next steps to prevent your process from being killed by Linux' memory management:
-  1. Acess you Jetson Nano from an SSH session and stop the graphical session with:
-    `$ sudo systemctl stop lightdm`
-    (that will give you extra 300mb of memory)
-  2. If you already have a SWAP file of at least 4gb, increase it's usage to the maximum:
-    `$ sudo sysctl vm.swappiness=100`
-    (keep in mind if you regularly abuse the SWAP usage it will shorten you microSD card's life)
+  1. Access you Jetson Nano from an SSH session and stop the graphical session for freeing about 300mb of memory with:
+  
+  ```
+  $ sudo systemctl stop lightdm
+  ```
+ 
+  2. If you already have a SWAP file of at least 4gb, increase it's usage to the maximum (keep in mind that if you regularly abuse the SWAP usage it will shorten your microSD card's life):
+  
+  ```
+  $ sudo sysctl vm.swappiness=100
+  ```
+  
   3. As suggested in the jetson-inference repository:
   
     to save memory, you can also reduce the --batch-size (default 8) and --workers (default 2)
