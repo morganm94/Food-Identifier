@@ -191,4 +191,4 @@ You can also get a cheap external sound card, which connects to a Jetson's USB p
 
 <img src="https://user-images.githubusercontent.com/69062188/105522763-40b59a00-5ca3-11eb-8520-ea1088ce004b.jpg" width="40%"></img> 
 
-No matter which audio output device you use, go to the **mixer** (right click the speaker's icon on the bottom-right corner and then *launch Mixer*, or run ´pavucontrol´ from the terminal) and select the right output device for **ALSA plug-in [aplay]** under the *Playback* tab **while our program is running** (only the currently playing programs are shown in the mixer).
+No matter which audio output device you use, go to the **mixer** (right click the speaker's icon on the bottom-right corner and then *launch Mixer*, or run `pavucontrol` from the terminal) and select the right output device for **ALSA plug-in [aplay]** under the *Playback* tab **while our program is running** (only the currently playing programs are shown in the mixer).
