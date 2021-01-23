@@ -114,21 +114,27 @@ import pyttsx3
 engine = pyttsx3.init()
 
 # Set speech rate (higer = faster)
-engine.setProperty('rate', 100)
+# engine.setProperty('rate', 100)
 
 # OPTIONAL Set voice
 # voices = engine.getProperty('voices')
 # engine.setProperty('voice', voices[1].id)
 ```
 
-Since we won't need the visual feedback and we are low on system resources, I opted to comment out the code related to it (lines 83 - 84):
+After capturing and getting the class of the image from the camera, we **pass the objet's class to the voice synth engine** and wait for it to end speaking (lines 131 - 132):
+```python
+		engine.say(class_desc)
+		engine.runAndWait()
+```
+
+Since **we won't need the visual feedback** and we are low on system resources, I opted to comment out the code related to it (lines 83 - 84):
 
 ```python
 # output = jetson.utils.videoOutput(opt.output_URI, argv=sys.argv+is_headless)
 # font = jetson.utils.cudaFont()
 ```
 
-And also lines 102 to 112:
+And also lines 114 to 124:
 
 ```python
   # overlay the result on the image	
@@ -143,7 +149,20 @@ And also lines 102 to 112:
   # print out performance info
   # net.PrintProfilerTimes()
 ```
-  
+Because we want our final program to be **accessible and easy to use**, let's add audible instructions for exiting the program with a **KeyboardInterrupt** (lines 91 - 93):
+
+```python
+engine.setProperty('rate', 200)
+engine.say("Welcome, for exiting this program please keep pressing for two seconds the keyboard keys 'control' and 'c'")
+engine.setProperty('rate', 100)
+```
+And finally, if someone is going to run our program often, it would be nice to make an **alias** for our long command. Run in a terminal:
+```shell
+$ echo "alias food_container_identifier='THE LONG COMMAND' #This is a comment to remember what this alias does." > ~/.bashrc
+$ source ~/.bashrc
+```
+Now every time we run *food_container_identifier* (or any name you wrote instead) from a terminal it will be automatically replaced by the long command we wrote inside **''** and executed. I recommend you use absolute paths in this case.
+Keyboard bindings are important to have in mind when developing accessiible programs, you might also want to set one for opening a terminal (normally, it defaults to **Ctrl + Alt + t**).
 
 The script is simple and generic enough for being useful as **a starting point for a lot of accessibility projects**.
 Please take a look at the [Python script](https://github.com/oliver-almaraz/food_container_identifier/blob/main/food_container_identifier.py) even if you are not a programmer, and try to understand what's going on.
