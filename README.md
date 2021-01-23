@@ -162,13 +162,6 @@ engine.setProperty('rate', 200)
 engine.say("Welcome, for exiting this program please keep pressing for two seconds the keyboard keys 'control' and 'c'")
 engine.setProperty('rate', 100)
 ```
-And finally, if someone is going to run our program often, it would be nice to make an **alias** for our long command. Run in a terminal:
-```shell
-$ echo "alias food_container_identifier='THE LONG COMMAND' #This is a comment to remember what this alias does." > ~/.bashrc
-$ source ~/.bashrc
-```
-Now every time we run *food_container_identifier* (or any name you wrote instead) from a terminal it will be automatically replaced by the long command we wrote inside **''** and executed. I recommend you use absolute paths in this case.
-Keyboard bindings are important to have in mind when developing accessiible programs, you might also want to set one for opening a terminal (normally, it defaults to **Ctrl + Alt + t**).
 
 The script is simple and generic enough for being useful as **a starting point for a lot of accessibility projects**.
 Please take a look at the [Python script](https://github.com/oliver-almaraz/food_container_identifier/blob/main/food_container_identifier.py) even if you are not a programmer, and try to understand what's going on.
@@ -180,6 +173,15 @@ Test your model with our new script, passing the exact same arguments you would 
 $ python3 /home/$USER/jetson-inference/python/examples/food_container_identifier.py --model=/home/$USER/jetson-inference/python/training/classification/models/food_container_identifier/resnet18.onnx --input_blob=input_0 --output_blob=output_0 --labels=/home/$USER/jetson-inference/python/training/classification/data/food_container_identifier/labels.txt csi://0
 ```
 Notice how I'm now using **absolute paths** because I saved my `food_container_identifier.py` script in a different directory than my data. You can make an **alias** in `~.bashrc` or just move everything to the same directory to spare some time.
+
+Finally, if someone is going to run our program often, it would be nice to make an **alias** for our long command. Run in a terminal:
+```shell
+$ echo "alias food_container_identifier='THE LONG COMMAND' #This is a comment to remember what this alias does." > ~/.bashrc
+$ source ~/.bashrc
+```
+Now every time we run *food_container_identifier* (or any name you wrote instead) from a terminal it will be automatically replaced by the long command we wrote inside **''** and executed. I recommend you use absolute paths in this case, as I did.
+
+**Keyboard bindings are important to have in mind when developing accessiible programs**, you might also want to set one for opening a terminal (normally, it defaults to **Ctrl + Alt + t**).
 
 ## About audio output
 The Jetson Nano does not have a 3.5mm audio port nor a Bluetooth module, therefore we will have to use non-conventional audio outputs. If you have an HDMI monitor you can use its speakers. Because I only have a VGA monitor, I needed an HDMI to VGA converter, which connects to the Jetson Nano through the HDMI port and has two outputs: a VGA interface and a 3.5mm audio port, to which you can connect a speaker or headphones.
