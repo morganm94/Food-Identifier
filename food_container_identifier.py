@@ -44,7 +44,7 @@ import pyttsx3
 engine = pyttsx3.init()
 
 # Set speech rate (higer = faster)
-engine.setProperty('rate', 100)
+# engine.setProperty('rate', 100)
 
 # OPTIONAL Set voice
 #voices = engine.getProperty('voices')
