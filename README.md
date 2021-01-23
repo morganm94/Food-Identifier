@@ -91,6 +91,10 @@ Install a **speech synthesizer** supported by [**pyttsx3**](https://pypi.org/pro
 ```
 $ sudo apt-get install espeak
 ```
+Then install the **P**ackage **I**nstaller for **P**ython 3:
+```
+$ sudo apt-get install python3-pip
+```
 And, finally, the Python library for text-to-speech conversion:
 ```
 $ sudo pip3 install pyttsx3
