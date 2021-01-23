@@ -176,7 +176,7 @@ Notice how I'm now using **absolute paths** because I saved my `food_container_i
 
 Finally, if someone is going to run our program often, it would be nice to make an **alias** for our long command. Run in a terminal:
 ```shell
-$ echo "alias food_container_identifier='THE LONG COMMAND' #This is a comment to remember what this alias does." > ~/.bashrc
+$ echo "alias food_container_identifier='THE LONG COMMAND' #This is a comment to remember what this alias does." >> ~/.bashrc
 $ source ~/.bashrc
 ```
 Now every time we run *food_container_identifier* (or any name you wrote instead) from a terminal it will be automatically replaced by the long command we wrote inside **''** and executed. I recommend you use absolute paths in this case, as I did.
