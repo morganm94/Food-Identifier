@@ -95,15 +95,17 @@ engine.setProperty('rate', 100)
 
 # process frames until the user exits
 while True:
+	
+	try:
 
-	# capture the next image
-	img = input.Capture()
+		# capture the next image
+		img = input.Capture()
 
-	# classify the image
-	class_id, confidence = net.Classify(img)
+		# classify the image
+		class_id, confidence = net.Classify(img)
 
-	# find the object description
-	class_desc = net.GetClassDesc(class_id)
+		# find the object description
+		class_desc = net.GetClassDesc(class_id)
 
 
 #######################################################
@@ -126,8 +128,15 @@ while True:
 # AND START THE VOICE SYNTH, WAIT UNTIL IT'S DONE #
 ###################################################
 
-	engine.say(class_desc)
-	engine.runAndWait()
+		engine.say(class_desc)
+		engine.runAndWait()
+		
+######################################
+# Clean and exit on KeyboarInterrupt #
+######################################
+
+	except KeyboardInterrupt:
+		break
 
 
 	# exit on input/output EOS
