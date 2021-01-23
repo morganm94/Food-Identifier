@@ -5,7 +5,7 @@ Re-train a ResNet-18 Neural Network with PyTorch for image classification of foo
 
 ## Introduction
 Since last year, I’ve been programming some [JavaScript](https://github.com/oliver-almaraz/BrailleTermWeb) and [C](https://github.com/oliver-almaraz/Parkins) to adapt braille-learning resources for Spanish-speaking students and teachers, and since I recently got my **Jetson Nano Developer Kit** I started to realize the huge potential of this little but powerful computer towards **accessibility**.
-In this particular project, I will re-train a ResNe-18 Neural Network with PyTorch to identify some food containers I have in my kitchen and also to make the Jetson Nano read out loud the name of that product.
+In this particular project, I will re-train a ResNet-18 Neural Network with PyTorch to identify some food containers I have in my kitchen and also to make the Jetson Nano read out loud the name of that product.
 
 ### But why would it be useful?
 Blind and visually impaired people may adapt to use other senses for understanding the world around them, that’s why they may struggle to identify objects with a similar, if not identical shape. They normally deal with that keeping their food supplies (and everything in general) in a very strict order, but a friend told me that opening the wrong food can is something common and annoying. **Now have you got an idea of how frustrating it could be just to make a meal without someone around you?**
