@@ -1,6 +1,8 @@
 # Food Container Identifier
 Re-train a ResNet-18 Neural Network with PyTorch for image classification of food containers from a live camera feed and use a Python script for speech description of those food containers for the blind or visually impaired people using Nvidia's Jetson Nano.
 
+**Update**: tested with JetPack 4.4 and 4.5.
+
 **Note**: this project's data is too big for a GitHub repository, I had to upload it to an [external service](https://1drv.ms/u/s!AuyJyRlIYCmGhHePwGWAZX43FWU1?e=wNfQ3i). For the same reason, my model, already trained with my data and exported to ONNX format, can be found in the [releases](https://github.com/oliver-almaraz/food_container_identifier/releases/tag/v1) section.
 
 ## Introduction
@@ -95,15 +97,15 @@ Once you are satisfied with your model's accuracy, proceed to the next step. (If
 ### Installing dependencies
 Install a **speech synthesizer** supported by [**pyttsx3**](https://pypi.org/project/pyttsx3/):
 ```
-$ sudo apt-get install espeak
+$ sudo apt install espeak
 ```
-Then install the **P**ackage **I**nstaller for **P**ython 3:
+Then verify you have the **P**ackage **I**nstaller for **P**ython 3:
 ```
-$ sudo apt-get install python3-pip
+$ sudo apt install python3-pip
 ```
 And, finally, the Python library for text-to-speech conversion:
 ```
-$ sudo pip3 install pyttsx3
+$ sudo -H pip3 install pyttsx3
 ```
 *Hint: if you are a Python developer I recommend you install this Python library in a virtual environment.*
 
