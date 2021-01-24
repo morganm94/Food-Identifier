@@ -188,8 +188,8 @@ Now every time we run *food_container_identifier* (or any name you wrote instead
 **Keyboard bindings are important to have in mind when developing accessiible programs**, you might also want to set one for opening a terminal (normally, it defaults to **Ctrl + Alt + t**).
 
 ## About audio output
-The Jetson Nano does not have a 3.5mm audio port nor a Bluetooth module, therefore we will have to use non-conventional audio outputs. If you have an HDMI monitor you can use its speakers. Because I only have a VGA monitor, I needed an HDMI to VGA converter, which connects to the Jetson Nano through the HDMI port and has two outputs: a VGA interface and a 3.5mm audio port, to which you can connect a speaker or headphones.
-You can also get a cheap external sound card, which connects to a Jetson's USB port and has a 3.5mm audio output (image below).
+The Jetson Nano does not have a 3.5mm audio jack nor a Bluetooth module, therefore we will have to use non-conventional audio outputs. If you have an HDMI monitor you can use its speakers. Because I only have a VGA monitor, I needed an HDMI to VGA converter, which connects to the Jetson Nano through the HDMI port and has two outputs: a VGA interface and a 3.5mm audio jack, to which you can connect a speaker or headphones.
+You can also get a cheap external sound card, which connects to a Jetson's USB port and has a 3.5mm audio jack (image below).
 
 <img src="https://user-images.githubusercontent.com/69062188/105522763-40b59a00-5ca3-11eb-8520-ea1088ce004b.jpg" width="40%"></img> 
 
