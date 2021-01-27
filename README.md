@@ -1,6 +1,8 @@
 # Food Container Identifier
 Re-train a ResNet-18 Neural Network with PyTorch for image classification of food containers from a live camera feed and use a Python script for speech description of those food containers for the blind or visually impaired people using Nvidia's Jetson Nano.
 
+(If you would like a similar project but for **Real-time face recognition with audible (speech) output also for the Jetson Nano**, please refer to my newer project [jetson_face_recognition_audible](https://github.com/oliver-almaraz/jetson_face_recognition_audible/blob/main/README.md))
+
 **Update**: tested with JetPack 4.4 and 4.5.
 
 **Note**: this project's data is too big for a GitHub repository, I had to upload it to an [external service](https://1drv.ms/u/s!AuyJyRlIYCmGhHePwGWAZX43FWU1?e=wNfQ3i). For the same reason, my model, already trained with my data and exported to ONNX format, can be found in the [releases](https://github.com/oliver-almaraz/food_container_identifier/releases/tag/v1) section.
