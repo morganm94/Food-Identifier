@@ -159,11 +159,25 @@ And also lines 114 to 124:
   # print out performance info
   # net.PrintProfilerTimes()
 ```
-Because we want our final program to be **accessible and easy to use**, let's add audible instructions for exiting the program with a **KeyboardInterrupt** (lines 91 - 93):
+Because we want our final program to be **accessible and easy to use**, let's add audible feedback and instructions for exiting the program with a **KeyboardInterrupt** (lines 91 - 93):
+```python
+#################################################
+# AUDIO FEEDBACK TO KNOW SOMETHING IS HAPPENING #
+#################################################
+
+engine.setProperty('rate', 250)
+engine.say("Loading, please wait a minute")
+engine.runAndWait()
+```
+And just before the loop starts:
 
 ```python
-engine.setProperty('rate', 200)
-engine.say("Welcome, for exiting this program please keep pressing for two seconds the keyboard keys 'control' and 'c'")
+####################################
+# AUDIBLE INSTRUCTIONS FOR EXITING #
+####################################
+
+engine.say("Program ready, for exiting please keep pressing for two seconds the keyboard keys control and c")
+engine.runAndWait()
 engine.setProperty('rate', 100)
 ```
 
