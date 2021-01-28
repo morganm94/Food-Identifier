@@ -23,7 +23,7 @@
 
 ###########################################################################
 # SCRIPT MODIFIED BY OLIVER ALMARAZ ON JAN-2021 FOR THE PROJECT FOUND IN: #
-# 			github.com/oliver-almaraz/food_container_identifier			  #
+#     github.com/oliver-almaraz/food_container_identifier                 #
 ###########################################################################
 
 import jetson.inference
@@ -50,6 +50,14 @@ engine = pyttsx3.init()
 #voices = engine.getProperty('voices')
 #engine.setProperty('voice', voices[1].id)
 
+
+#################################################
+# AUDIO FEEDBACK TO KNOW SOMETHING IS HAPPENING #
+#################################################
+
+engine.setProperty('rate', 250)
+engine.say("Loading, please wait a minute")
+engine.runAndWait()
 
 
 # parse the command line
@@ -88,8 +96,8 @@ input = jetson.utils.videoSource(opt.input_URI, argv=sys.argv)
 # AUDIBLE INSTRUCTIONS FOR EXITING THE PROGRAM #
 ################################################
 
-engine.setProperty('rate', 200)
-engine.say("Welcome, for exiting this program please keep pressing for two seconds the keyboard keys 'control' and 'c'")
+engine.say("Program ready, for exiting please keep pressing for two seconds the keyboard keys 'control' and 'c'")
+engine.runAndWait()
 engine.setProperty('rate', 100)
 
 
