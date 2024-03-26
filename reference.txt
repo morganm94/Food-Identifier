@@ -1,0 +1,10 @@
+1) https://code-maven.com/flask-serve-static-files
+2) https://www.youtube.com/watch?v=Y2fMCxLz6wM
+3) https://machinelearningmastery.com/how-to-configure-image-data-augmentation-when-training-deep-learning-neural-networks/
+4) https://realpython.com/storing-images-in-python/
+5) https://towardsdatascience.com/this-ai-is-hungry-b2a8655528be
+6) https://muriz.ml/blog/recognize-food
+7) http://images.nvidia.com/content/APAC/events/ai-conference/resource/ai-for-research/
+8) FoodAI-Food-Image-Recognition-with-Deep-Learning.pdf
+9) https://towardsdatascience.com/transfer-learning-using-mobilenet-and-keras-c75daf7ff299
+10) https://www.tensorflow.org/tutorials/images/transfer_learning
